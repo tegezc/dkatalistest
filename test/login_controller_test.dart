@@ -1,4 +1,6 @@
 import 'package:dkatalistest/features/controller/login_controller.dart';
+import 'package:dkatalistest/features/model/PasswordValidation.dart';
+import 'package:dkatalistest/features/model/enum/password_strength.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
@@ -70,6 +72,47 @@ main() {
     'sld-ends-with-dash@sld-.com',
     'sld-starts-with-dashsh@-sld.com',
   ];
+
+  /// dummy weak password
+  /// ref : https://www.secureworld.io/industry-news/worst-passwords-of-2020-list
+  final List<String> weakPasswords = [
+    "1234567890",
+    "password",
+    "123456789",
+    "password",
+    "12345678",
+    "11111111",
+    "12341234",
+    "1234567890",
+    "qwertyui",
+    "iloveyou",
+  ];
+
+  final List<String> fairStrongs = [
+    "qwertyu1",
+    "password1",
+    "Medium12",
+    "picture1",
+    "Password1",
+    "qwErtyui1",
+    "abcd1234",
+    "Iloveyou1",
+    "abcDefg1"
+  ];
+
+  final List<String> strongPasswords = [
+    "q3~PDBK[fh5\"Q;#8",
+    "m2#\";<R?x@g/urvd",
+    "kW^_7V`TueG),%~C",
+    "J#;AsP/'9X](CzFZ",
+    "UEH@Gp*,m^r25f+4",
+    "J=3_9CY;>frMtdTv",
+    "zhP4)}<NLB?2>;j5",
+    "sT;2u3<Vy^At*\"6P",
+    "Cn-8p)A?u~%R}MT{"
+  ];
+
+  final String passLess8digit = "#xabmni";
   group("Test validasi Email", () {
     test('Validasi email tidak valid', () {
       for (var actual in invalidAddresses) {
@@ -83,6 +126,46 @@ main() {
         expect(loginController.checkEmail(actual), equals(true),
             reason: 'E-mail: ' + actual);
       }
+    });
+  });
+
+  group("Test Password", () {
+    test("Test Weak password", () {
+      for (var weakPassword in weakPasswords) {
+        PasswordValidation passwordValidation =
+            loginController.checkPassword(weakPassword);
+        expect(
+            passwordValidation.strengthPassword, equals(EPasswordStrength.weak),
+            reason: 'Password: ' + weakPassword);
+      }
+    });
+
+    test("Test Fair Strong Password", () {
+      for (var fairstrong in fairStrongs) {
+        PasswordValidation passwordValidation =
+            loginController.checkPassword(fairstrong);
+        expect(passwordValidation.strengthPassword,
+            equals(EPasswordStrength.fairstrong),
+            reason: 'Password: ' + fairstrong);
+      }
+    });
+
+    test("Test Strong Password", () {
+      for (var strongpassword in strongPasswords) {
+        PasswordValidation passwordValidation =
+            loginController.checkPassword(strongpassword);
+        expect(passwordValidation.strengthPassword,
+            equals(EPasswordStrength.strong),
+            reason: 'Password: ' + strongpassword);
+      }
+    });
+
+    test("password is less than 8 digits", () {
+      PasswordValidation passwordValidation =
+          loginController.checkPassword(passLess8digit);
+      expect(
+          passwordValidation.strengthPassword, equals(EPasswordStrength.kosong),
+          reason: 'Password: ' + passLess8digit);
     });
   });
 }
