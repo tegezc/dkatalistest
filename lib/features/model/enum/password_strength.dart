@@ -1,1 +1,1 @@
-enum EPasswordStrength { kosong, weak, medium, strong }
+enum EPasswordStrength { kosong, weak, fairstrong, strong }
