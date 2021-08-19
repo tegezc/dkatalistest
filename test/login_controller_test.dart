@@ -100,6 +100,7 @@ main() {
     "abcDefg1"
   ];
 
+  /// ref: https://passwordsgenerator.net/plus/
   final List<String> strongPasswords = [
     "q3~PDBK[fh5\"Q;#8",
     "m2#\";<R?x@g/urvd",
