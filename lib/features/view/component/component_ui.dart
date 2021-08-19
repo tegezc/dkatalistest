@@ -1,7 +1,6 @@
 import 'package:dkatalistest/features/view/component/enumui.dart';
 import 'package:flutter/material.dart';
 
-
 class ComponentUI {
   static Widget circleNumber(String number, bool ispass) {
     return Container(
