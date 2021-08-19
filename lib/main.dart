@@ -1,6 +1,9 @@
+import 'package:dkatalistest/features/view/account/view_personal_information.dart';
+import 'package:dkatalistest/features/view/account/view_schedule.dart';
 import 'package:flutter/material.dart';
 
-import 'features/view/HomeView.dart';
+import 'features/view/account/view_email.dart';
+import 'features/view/account/view_password.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +27,15 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        ViewEmail.name: (context) => ViewEmail(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        ViewPassword.name: (context) => ViewPassword(),
+        ViewPersonalInformation.name: (context) => ViewPersonalInformation(),
+        ViewSchedule.name: (context) => ViewSchedule(),
+      },
     );
   }
 }
