@@ -15,7 +15,7 @@ class LoginController {
 
   PasswordValidation checkPassword(String pass) {
     String password = pass;
-    if (password.isEmpty) {
+    if (password.length < 8) {
       return PasswordValidation.empty();
     }
 
@@ -48,11 +48,10 @@ class LoginController {
     if (strength < 0.3) {
       passwordStrength = EPasswordStrength.weak;
     } else if (strength < 0.7) {
-      passwordStrength = EPasswordStrength.medium;
+      passwordStrength = EPasswordStrength.fairstrong;
     } else {
       passwordStrength = EPasswordStrength.strong;
     }
-
     return passwordStrength;
   }
 }
