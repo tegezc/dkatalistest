@@ -113,6 +113,11 @@ main() {
   ];
 
   final String passLess8digit = "#xabmni";
+  final String nolowercase = "SDFGJR12>>";
+  final String noUpperCase = "sdfgjr12>>";
+  final String noNumber = "SDDFdsdf>>";
+  final String noSpecialChar = "KIadfwe1234";
+
   group("Test validasi Email", () {
     test('Validasi email tidak valid', () {
       for (var actual in invalidAddresses) {
@@ -166,6 +171,32 @@ main() {
       expect(
           passwordValidation.strengthPassword, equals(EPasswordStrength.kosong),
           reason: 'Password: ' + passLess8digit);
+    });
+
+    test("password no lowercase", () {
+      PasswordValidation passwordValidation =
+          loginController.checkPassword(nolowercase);
+      expect(passwordValidation.hasLowercase, equals(false),
+          reason: 'Password: ' + nolowercase);
+    });
+
+    test("password no uppercase", () {
+      PasswordValidation passwordValidation =
+          loginController.checkPassword(noUpperCase);
+      expect(passwordValidation.hasUpercase, equals(false),
+          reason: 'Password: ' + noUpperCase);
+    });
+    test("password no number", () {
+      PasswordValidation passwordValidation =
+          loginController.checkPassword(noNumber);
+      expect(passwordValidation.hasNumber, equals(false),
+          reason: 'Password: ' + noNumber);
+    });
+    test("password no special character", () {
+      PasswordValidation passwordValidation =
+          loginController.checkPassword(noSpecialChar);
+      expect(passwordValidation.hasChar, equals(false),
+          reason: 'Password: ' + noSpecialChar);
     });
   });
 }
