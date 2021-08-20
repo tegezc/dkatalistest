@@ -25,4 +25,16 @@ class PasswordValidation {
         this.hasNumber &&
         this.validLength;
   }
+
+  bool operator ==(dynamic other) =>
+      other != null &&
+      other is PasswordValidation &&
+      this.hasUpercase == other.hasUpercase &&
+      this.hasLowercase == other.hasLowercase &&
+      this.hasNumber == other.hasNumber &&
+      this.hasChar == other.hasChar &&
+      this.strengthPassword == other.strengthPassword;
+
+  @override
+  int get hashCode => super.hashCode;
 }
