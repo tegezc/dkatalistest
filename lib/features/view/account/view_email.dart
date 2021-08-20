@@ -59,81 +59,146 @@ class _ViewEmailState extends State<ViewEmail> {
             if (item != null) {
               return Scaffold(
                 body: SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
-                  child: Container(
-                    color: ColorUI.colorWhite(),
-                    height: size.height - 80,
-                    child: Column(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Stack(
                       children: [
                         Container(
-                          color: ColorUI.mainColor(),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 120.0, bottom: 40, left: 16, right: 16.0),
-                            child: ComponentUI.stepNewUser(
-                                EStepNewUser.email, size.width),
+                          width: size.width,
+                          height: size.height,
+                          color: ColorUI.colorWhite(),
+                        ),
+                        Transform(
+                          transform: Matrix4.skewY(0.25),
+                          origin: Offset(0, 0),
+                          child: Container(
+                            width: size.width,
+                            height: 200,
+                            color: Color.fromRGBO(64, 124, 236, 1),
                           ),
                         ),
-                        SizedBox(
-                          height: 40,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              color: Color.fromRGBO(64, 124, 236, 1),
+                              height: 170,
+                              width: size.width,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              width: 50,
+                              height: 60,
+                              color: Color.fromRGBO(64, 124, 236, 1),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              color: ColorUI.mainColor(),
+                              height: 170,
+                              width: size.width,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Transform.translate(
+                              offset: Offset(-10.0, 23.0),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                // margin: EdgeInsets.all(100.0),
+                                decoration: BoxDecoration(
+                                    color: ColorUI.colorWhite(),
+                                    shape: BoxShape.circle),
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
-                            width: double.infinity,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 24.0, top: 40.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ComponentUI.richTechGinRegEmail(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  ComponentUI.textGinBold(
-                                      'Welcome to The Bank of The Future.\n'
-                                      'Manage and track your accounts on\nthe go.',
-                                      Colors.black,
-                                      14.0),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 12.0, top: 20),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: TextFieldRounded(
-                                          _textEditingController,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 60,
-                                  ),
-                                ],
+                          // color: ColorUI.colorWhite(),
+                          height: size.height - 80,
+                          child: Column(
+                            children: [
+                              Container(
+                                //color: ColorUI.mainColor(),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 120.0,
+                                      bottom: 40,
+                                      left: 16,
+                                      right: 16.0),
+                                  child: ComponentUI.stepNewUser(
+                                      EStepNewUser.email, size.width),
+                                ),
                               ),
-                            )),
-                        Expanded(
-                            child: Container(
-                          width: size.width,
-                        )),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: ButtonApp.dinamis("Next", item.isvalid,
-                              onTap: () {
-                            _eventButtonNext();
-                          }),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Container(
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 24.0, top: 40.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ComponentUI.richTechGinRegEmail(),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        ComponentUI.textGinBold(
+                                            'Welcome to The Bank of The Future.\n'
+                                            'Manage and track your accounts on\nthe go.',
+                                            Colors.black,
+                                            14.0),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 12.0, top: 20),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: TextFieldRounded(
+                                                _textEditingController,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 60,
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                              Expanded(
+                                  child: Container(
+                                width: size.width,
+                              )),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0),
+                                child: ButtonApp.dinamis("Next", item.isvalid,
+                                    onTap: () {
+                                  _eventButtonNext();
+                                }),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                  ),
-                ),
+                    )),
               );
             } else {
               return Scaffold(body: Container());
