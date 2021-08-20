@@ -31,6 +31,12 @@ class _ViewPersonalInformationState extends State<ViewPersonalInformation> {
     Navigator.pushNamed(context, ViewSchedule.name);
   }
 
+  bool isBtnEnable() {
+    return _currentExpense != null &&
+        _currentIncome != null &&
+        _currentGoalActivation != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -117,7 +123,7 @@ class _ViewPersonalInformationState extends State<ViewPersonalInformation> {
               )),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                child: ButtonApp.enable("Next", onTap: () {
+                child: ButtonApp.dinamis("Next", isBtnEnable(), onTap: () {
                   _eventButtonNext();
                 }),
               ),
