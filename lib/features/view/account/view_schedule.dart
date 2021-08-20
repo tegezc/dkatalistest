@@ -1,7 +1,3 @@
-import 'package:dkatalistest/features/dummydata.dart';
-import 'package:dkatalistest/features/model/expense.dart';
-import 'package:dkatalistest/features/model/goal_activation.dart';
-import 'package:dkatalistest/features/model/income.dart';
 import 'package:dkatalistest/features/view/component/colorui.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +13,6 @@ class ViewSchedule extends StatefulWidget {
 }
 
 class _ViewScheduleState extends State<ViewSchedule> {
-  GoalActivation? _currentGoalActivation;
-  Expense? _currentExpense;
-  Income? _currentIncome;
-
-  List<GoalActivation> _lgoal = Dummy.dummyGoalActivation();
-  List<Expense> _lexpense = Dummy.dummyExpense();
-  List<Income> _linocme = Dummy.dummyIncome();
 
   void _eventButtonNext() {
     // Navigator.pushNamed(context, '/password');
@@ -50,7 +39,7 @@ class _ViewScheduleState extends State<ViewSchedule> {
                 padding:
                     const EdgeInsets.only(left: 16.0, right: 16.0, top: 50),
                 child:
-                    ComponentUI.stepNewUser(EStepNewUser.personal, size.width),
+                    ComponentUI.stepNewUser(EStepNewUser.schedul, size.width),
               ),
               SizedBox(
                 height: 40,
@@ -73,35 +62,27 @@ class _ViewScheduleState extends State<ViewSchedule> {
                             'for digital saving',
                             Colors.white,
                             16.0),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12.0, top: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: _comboboxGoal(),
-                          ),
+                        SizedBox(
+                          height: 20,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12.0, top: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: _comboboxIncome(),
-                          ),
+                        ButtonShowDate(
+                          size.width - 80,
+                          "Date",
+                          DateTime.now(),
+                          onTap: () {
+                            _datePicker();
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12.0, top: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: _comboboxExpense(),
-                          ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ButtonShowTime(
+                          size.width - 80,
+                          "Time",
+                          DateTime.now(),
+                          onTap: () {
+                            _selectTime(context);
+                          },
                         ),
                         SizedBox(
                           height: 20,
@@ -129,136 +110,36 @@ class _ViewScheduleState extends State<ViewSchedule> {
     );
   }
 
-  Widget _comboboxGoal() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child:
-                  ComponentUI.textGin("Goal for activation", Colors.grey, 14),
-            ),
-          ),
-          DropdownButton(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            items: _lgoal
-                .map((value) => DropdownMenuItem<GoalActivation>(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ComponentUI.textGinBold(
-                            "${value.text}", Colors.black, 18),
-                      ),
-                      value: value,
-                    ))
-                .toList(),
-            onChanged: (item) {
-              setState(() {
-                _currentGoalActivation = item as GoalActivation;
-              });
-            },
-            value: _currentGoalActivation,
-            isExpanded: true,
-            hint: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child:
-                  ComponentUI.textGinBold("- Chose Option -", Colors.black, 18),
-            ),
-          )
-        ],
-      ),
+  void _datePicker() async {
+    DateTime dtawal = DateTime.now();
+    DateTime dtakhir = DateTime(DateTime.now().year + 5);
+    DateTime initialDt = DateTime.now();
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDt,
+      firstDate: dtawal,
+      lastDate: dtakhir,
     );
+
+    if (picked != null) {}
   }
 
-  Widget _comboboxIncome() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ComponentUI.textGin("Monthly Income", Colors.grey, 14),
-            ),
-          ),
-          DropdownButton(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            items: _linocme
-                .map((value) => DropdownMenuItem<Income>(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ComponentUI.textGinBold(
-                            "${value.income}", Colors.black, 18),
-                      ),
-                      value: value,
-                    ))
-                .toList(),
-            onChanged: (item) {
-              setState(() {
-                _currentIncome = item as Income;
-              });
-            },
-            value: _currentIncome,
-            isExpanded: true,
-            hint: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child:
-                  ComponentUI.textGinBold("- Chose Option -", Colors.black, 18),
-            ),
-          )
-        ],
-      ),
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
     );
-  }
-
-  Widget _comboboxExpense() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ComponentUI.textGin("Monthly Expense", Colors.grey, 14),
-            ),
-          ),
-          DropdownButton(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            items: _lexpense
-                .map((value) => DropdownMenuItem<Expense>(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ComponentUI.textGinBold(
-                            "${value.expense}", Colors.black, 18),
-                      ),
-                      value: value,
-                    ))
-                .toList(),
-            onChanged: (item) {
-              setState(() {
-                _currentExpense = item as Expense;
-              });
-            },
-            value: _currentExpense,
-            isExpanded: true,
-            hint: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child:
-                  ComponentUI.textGinBold("- Chose Option -", Colors.black, 18),
-            ),
-          )
-        ],
-      ),
-    );
+    if (picked != null) {}
+    // setState(() {
+    //   selectedTime = picked;
+    //   _hour = selectedTime.hour.toString();
+    //   _minute = selectedTime.minute.toString();
+    //   _time = _hour + ' : ' + _minute;
+    //   _timeController.text = _time;
+    //   _timeController.text = formatDate(
+    //       DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+    //       [hh, ':', nn, " ", am]).toString();
+    // });
   }
 }
