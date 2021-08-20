@@ -162,18 +162,89 @@ class _ButtonBackState extends State<ButtonBack> {
 
 class ButtonShowDate extends StatelessWidget {
   final String label;
-  final DateTime dt;
+  final DateTime? dt;
   final double width;
   final Function onTap;
   ButtonShowDate(this.width, this.label, this.dt, {required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return _layout();
+    bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    if (!isIOS) {
+      return _layout();
+    } else {
+      return _layoutiOS();
+    }
   }
 
   Widget _layout() {
-    String strDate = DateUtility.dateToStringPanjang(this.dt);
+    String strDate = "";
+    if (this.dt == null) {
+      strDate = DateUtility.dateToStringPanjang(DateTime.now());
+    } else {
+      strDate = DateUtility.dateToStringPanjang(this.dt);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, left: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () {
+              this.onTap();
+            },
+            child: Container(
+              width: width,
+              // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+              // alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                border: Border.all(color: Colors.blue),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ComponentUI.textGin("Date", Colors.grey, 14),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          strDate,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _layoutiOS() {
+    String strDate = "";
+    if (this.dt == null) {
+      strDate = "- Chose Date -";
+    } else {
+      strDate = DateUtility.dateToStringPanjang(this.dt);
+    }
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 2),
       child: Column(
@@ -230,18 +301,87 @@ class ButtonShowDate extends StatelessWidget {
 
 class ButtonShowTime extends StatelessWidget {
   final String label;
-  final DateTime dt;
+  final DateTime? dt;
   final double width;
   final Function onTap;
   ButtonShowTime(this.width, this.label, this.dt, {required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return _layout();
+    bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    if (!isIOS) {
+      return _layout();
+    } else {
+      return _layoutiOS();
+    }
   }
 
   Widget _layout() {
-    String strDate = DateUtility.dateToStringjammenit(this.dt);
+    String strDate = "";
+    if (this.dt == null) {
+      strDate = DateUtility.dateToStringjammenit(DateTime.now());
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, left: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () {
+              this.onTap();
+            },
+            child: Container(
+              width: width,
+              // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+              // alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                border: Border.all(color: Colors.blue),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ComponentUI.textGin("Date", Colors.grey, 14),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          strDate,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _layoutiOS() {
+    String strDate = "";
+    if (this.dt == null) {
+      strDate = "- Chose Time -";
+    } else {
+      strDate = DateUtility.dateToStringjammenit(this.dt!);
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 2),
       child: Column(
