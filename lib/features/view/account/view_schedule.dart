@@ -13,7 +13,6 @@ class ViewSchedule extends StatefulWidget {
 }
 
 class _ViewScheduleState extends State<ViewSchedule> {
-
   void _eventButtonNext() {
     // Navigator.pushNamed(context, '/password');
   }

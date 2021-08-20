@@ -16,7 +16,8 @@ class Dummy {
     return [
       Expense("1", 10000000),
       Expense("2", 15000000),
-      Expense("3", 20000000)
+      Expense("3", 20000000),
+      Expense("4", 25000000)
     ];
   }
 
@@ -25,6 +26,7 @@ class Dummy {
       Income("1", 10000000),
       Income("2", 15000000),
       Income("3", 20000000),
+      Income("4", 25000000),
     ];
   }
 }
