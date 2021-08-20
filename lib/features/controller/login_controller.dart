@@ -15,9 +15,9 @@ class LoginController {
 
   PasswordValidation checkPassword(String pass) {
     String password = pass;
-    if (password.length < 8) {
-      return PasswordValidation.empty();
-    }
+    // if (password.length < 8) {
+    //   return PasswordValidation.empty();
+    // }
 
     bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
     bool hasDigits = password.contains(new RegExp(r'[0-9]'));
