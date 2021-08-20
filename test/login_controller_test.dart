@@ -169,8 +169,7 @@ main() {
     test("password is less than 8 digits", () {
       PasswordValidation passwordValidation =
           loginController.checkPassword(passLess8digit);
-      expect(
-          passwordValidation.strengthPassword, equals(EPasswordStrength.kosong),
+      expect(passwordValidation.ispasswordValid(), equals(false),
           reason: 'Password: ' + passLess8digit);
     });
 
